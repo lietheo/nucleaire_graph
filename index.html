@@ -2,24 +2,24 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Distribution INES - Grand Format</title>
+    <title>Distribution INES - Compact</title>
     <style>
         /* --- BASE --- */
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: transparent; 
             margin: 0;
-            padding: 5px; /* Réduit pour gagner de la place */
+            padding: 2px; 
             display: flex;
             justify-content: center;
         }
 
         .dashboard-card {
             background: white;
-            width: 400px; /* Largeur augmentée */
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            width: 370px; /* Largeur réduite */
+            padding: 12px 15px; /* Padding interne réduit */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             box-sizing: border-box;
         }
 
@@ -28,11 +28,11 @@
 
         .ines-item {
             display: grid;
-            grid-template-columns: 125px 45px 1fr; /* Ajusté pour la nouvelle largeur */
+            grid-template-columns: 110px 40px 1fr; /* Colonnes resserrées */
             align-items: center;
-            margin-bottom: 4px;
-            padding: 6px 8px; 
-            border-radius: 6px;
+            margin-bottom: 2px; /* Espacement vertical réduit */
+            padding: 4px 6px; 
+            border-radius: 4px;
             cursor: help;
             position: relative;
         }
@@ -42,58 +42,57 @@
         /* --- TOOLTIP --- */
         .ines-item .tooltip-content {
             visibility: hidden;
-            width: 320px; 
+            width: 280px; 
             background-color: #1e293b;
             color: #fff;
-            border-radius: 8px;
-            padding: 12px;
+            border-radius: 6px;
+            padding: 10px;
             position: absolute;
             z-index: 999;
             left: 50%;
             transform: translateX(-50%); 
             bottom: 100%;
-            margin-bottom: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            font-size: 12px;
-            line-height: 1.5;
+            margin-bottom: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            font-size: 11px;
+            line-height: 1.4;
             opacity: 0;
             transition: all 0.2s ease;
             pointer-events: none;
-            text-align: left;
         }
 
         .ines-item .tooltip-content::after {
-            content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px;
-            border-width: 6px; border-style: solid;
+            content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px;
+            border-width: 5px; border-style: solid;
             border-color: #1e293b transparent transparent transparent;
         }
 
         .ines-item:hover .tooltip-content { 
             visibility: visible; 
             opacity: 1; 
-            bottom: 115%;
+            bottom: 110%;
         }
         
-        .tt-title { display: block; font-weight: bold; color: #facc15; margin-bottom: 4px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px;}
+        .tt-title { display: block; font-weight: bold; color: #facc15; margin-bottom: 3px; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 3px;}
 
         /* --- ELEMENTS VISUELS --- */
-        .level-label { display: flex; align-items: center; gap: 8px; }
+        .level-label { display: flex; align-items: center; gap: 6px; }
         
         .level-tag {
-            font-size: 10px; font-weight: 800; color: white;
+            font-size: 9px; font-weight: 800; color: white;
             background-color: var(--c);
-            padding: 2px 0; border-radius: 4px; width: 22px; text-align: center;
+            padding: 1px 0; border-radius: 3px; width: 20px; text-align: center;
         }
         
-        .level-desc { color: #475569; font-size: 12px; font-weight: 600; white-space: nowrap; }
+        .level-desc { color: #475569; font-size: 11px; font-weight: 600; white-space: nowrap; }
 
         .level-count {
-            text-align: right; padding-right: 12px; 
-            font-weight: 700; color: #1e293b; font-size: 12px;
+            text-align: right; padding-right: 10px; 
+            font-weight: 700; color: #1e293b; font-size: 11px;
         }
 
         .bar-wrapper {
-            height: 8px; 
+            height: 6px; /* Barres plus fines */
             background-color: #f1f5f9;
             border-radius: 10px; 
             display: flex; align-items: center;
@@ -103,7 +102,7 @@
         .bar {
             height: 100%; border-radius: 10px; 
             width: var(--w); background-color: var(--c); opacity: 0.9;
-            min-width: 4px;
+            min-width: 3px;
         }
 
         /* --- COULEURS --- */
@@ -113,8 +112,8 @@
         .cat-grey   { --c: #94a3b8; }
 
         .separator { 
-            margin-top: 10px; 
-            padding-top: 10px; 
+            margin-top: 6px; 
+            padding-top: 6px; 
             border-top: 1px dashed #e2e8f0;
         }
     </style>
@@ -126,7 +125,7 @@
             <li class="ines-item cat-red">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 7 : Accident Majeur</span>
-                    Rejet majeur : effets étendus sur la santé et l'environnement. Exemple : Tchernobyl, Fukushima.
+                    Rejet majeur : effets étendus sur la santé et l'environnement.
                 </div>
                 <div class="level-label"><span class="level-tag">N7</span> <span class="level-desc">Majeur</span></div>
                 <div class="level-count">1</div>
@@ -136,7 +135,7 @@
             <li class="ines-item cat-red">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 6 : Accident Grave</span>
-                    Rejet important susceptible d'exiger l'application intégrale des plans d'urgence. Exemple : Kychtym.
+                    Rejet important. Application intégrale des plans d'urgence.
                 </div>
                 <div class="level-label"><span class="level-tag">N6</span> <span class="level-desc">Grave</span></div>
                 <div class="level-count">1</div>
@@ -146,7 +145,7 @@
             <li class="ines-item cat-red">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 5 : Accident</span>
-                    Rejet limité : dommages graves au cœur du réacteur. Exemple : Three Mile Island.
+                    Rejet limité. Dommages graves au cœur du réacteur.
                 </div>
                 <div class="level-label"><span class="level-tag">N5</span> <span class="level-desc">Accident</span></div>
                 <div class="level-count">1</div>
@@ -156,7 +155,7 @@
             <li class="ines-item cat-red">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 4 : Accident (local)</span>
-                    Dommages mineurs au cœur. Rejet mineur sans risque extérieur majeur.
+                    Dommages mineurs au cœur. Pas de risque extérieur majeur.
                 </div>
                 <div class="level-label"><span class="level-tag">N4</span> <span class="level-desc">Accident</span></div>
                 <div class="level-count">1</div>
@@ -166,7 +165,7 @@
             <li class="ines-item cat-orange">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 3 : Incident Grave</span>
-                    Exposition &gt; 10 fois la limite annuelle pour un travailleur. Rejet très faible.
+                    Exposition &gt; 10 fois la limite annuelle. Rejet très faible.
                 </div>
                 <div class="level-label"><span class="level-tag">N3</span> <span class="level-desc">Inc. Grave</span></div>
                 <div class="level-count">1</div>
@@ -176,7 +175,7 @@
             <li class="ines-item cat-orange">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 2 : Incident</span>
-                    Défaillance technique importante ou exposition travailleur &gt; limite annuelle.
+                    Défaillance technique importante ou exposition travailleur &gt; limite.
                 </div>
                 <div class="level-label"><span class="level-tag">N2</span> <span class="level-desc">Incident</span></div>
                 <div class="level-count">44</div>
@@ -186,7 +185,7 @@
             <li class="ines-item cat-orange">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 1 : Anomalie</span>
-                    Sortie du régime de fonctionnement autorisé. Conséquences nulles.
+                    Sortie du régime autorisé. Conséquences nulles.
                 </div>
                 <div class="level-label"><span class="level-tag">N1</span> <span class="level-desc">Anomalie</span></div>
                 <div class="level-count">2833</div>
