@@ -2,25 +2,27 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Distribution INES - Compact</title>
+    <title>Distribution INES - Ajusté</title>
     <style>
         /* --- BASE --- */
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: transparent; 
             margin: 0;
-            padding: 2px; 
+            padding: 0; 
             display: flex;
             justify-content: center;
         }
 
         .dashboard-card {
             background: white;
-            width: 370px; /* Largeur réduite */
-            padding: 12px 15px; /* Padding interne réduit */
+            width: 370px; 
+            /* On ajoute du padding en haut pour laisser de la place aux tooltips */
+            padding: 60px 15px 15px 15px; 
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             box-sizing: border-box;
+            position: relative;
         }
 
         /* --- LISTE --- */
@@ -28,13 +30,13 @@
 
         .ines-item {
             display: grid;
-            grid-template-columns: 110px 40px 1fr; /* Colonnes resserrées */
+            grid-template-columns: 110px 40px 1fr; 
             align-items: center;
-            margin-bottom: 2px; /* Espacement vertical réduit */
+            margin-bottom: 2px; 
             padding: 4px 6px; 
             border-radius: 4px;
             cursor: help;
-            position: relative;
+            position: relative; /* Important pour le positionnement du tooltip */
         }
 
         .ines-item:hover { background-color: #f8fafc; }
@@ -51,16 +53,18 @@
             z-index: 999;
             left: 50%;
             transform: translateX(-50%); 
+            /* Positionnement au-dessus */
             bottom: 100%;
             margin-bottom: 8px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
             font-size: 11px;
             line-height: 1.4;
             opacity: 0;
-            transition: all 0.2s ease;
+            transition: opacity 0.2s ease;
             pointer-events: none;
         }
 
+        /* Flèche du tooltip */
         .ines-item .tooltip-content::after {
             content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px;
             border-width: 5px; border-style: solid;
@@ -70,35 +74,27 @@
         .ines-item:hover .tooltip-content { 
             visibility: visible; 
             opacity: 1; 
-            bottom: 110%;
         }
         
         .tt-title { display: block; font-weight: bold; color: #facc15; margin-bottom: 3px; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 3px;}
 
         /* --- ELEMENTS VISUELS --- */
         .level-label { display: flex; align-items: center; gap: 6px; }
-        
         .level-tag {
             font-size: 9px; font-weight: 800; color: white;
             background-color: var(--c);
             padding: 1px 0; border-radius: 3px; width: 20px; text-align: center;
         }
-        
         .level-desc { color: #475569; font-size: 11px; font-weight: 600; white-space: nowrap; }
-
-        .level-count {
-            text-align: right; padding-right: 10px; 
-            font-weight: 700; color: #1e293b; font-size: 11px;
-        }
+        .level-count { text-align: right; padding-right: 10px; font-weight: 700; color: #1e293b; font-size: 11px; }
 
         .bar-wrapper {
-            height: 6px; /* Barres plus fines */
+            height: 6px; 
             background-color: #f1f5f9;
             border-radius: 10px; 
             display: flex; align-items: center;
             overflow: hidden; 
         }
-
         .bar {
             height: 100%; border-radius: 10px; 
             width: var(--w); background-color: var(--c); opacity: 0.9;
