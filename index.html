@@ -2,36 +2,25 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Distribution INES - Validé</title>
+    <title>Distribution INES - Grand Format</title>
     <style>
         /* --- BASE --- */
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #fafafa;
-            color: #37474f;
+            background-color: transparent; 
+            margin: 0;
+            padding: 5px; /* Réduit pour gagner de la place */
             display: flex;
             justify-content: center;
-            padding-top: 40px;
         }
 
         .dashboard-card {
             background: white;
-            width: 350px; 
-            padding: 15px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            width: 400px; /* Largeur augmentée */
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             box-sizing: border-box;
-        }
-
-        h2 {
-            font-weight: 700;
-            font-size: 14px;
-            margin: 0 0 10px 0;
-            color: #263238;
-            border-bottom: 1px solid #eceff1;
-            padding-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         /* --- LISTE --- */
@@ -39,36 +28,36 @@
 
         .ines-item {
             display: grid;
-            grid-template-columns: 105px 35px 1fr; 
+            grid-template-columns: 125px 45px 1fr; /* Ajusté pour la nouvelle largeur */
             align-items: center;
-            margin-bottom: 1px;
-            padding: 3px 5px; 
-            border-radius: 3px;
+            margin-bottom: 4px;
+            padding: 6px 8px; 
+            border-radius: 6px;
             cursor: help;
             position: relative;
         }
 
-        .ines-item:hover { background-color: #f5f7f8; }
+        .ines-item:hover { background-color: #f8fafc; }
 
         /* --- TOOLTIP --- */
         .ines-item .tooltip-content {
             visibility: hidden;
-            width: 280px; 
-            background-color: #263238;
+            width: 320px; 
+            background-color: #1e293b;
             color: #fff;
-            border-radius: 4px;
-            padding: 10px 12px;
+            border-radius: 8px;
+            padding: 12px;
             position: absolute;
             z-index: 999;
             left: 50%;
             transform: translateX(-50%); 
             bottom: 100%;
-            margin-bottom: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            font-size: 11px;
-            line-height: 1.4;
+            margin-bottom: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            font-size: 12px;
+            line-height: 1.5;
             opacity: 0;
-            transition: opacity 0.2s, bottom 0.2s;
+            transition: all 0.2s ease;
             pointer-events: none;
             text-align: left;
         }
@@ -76,65 +65,63 @@
         .ines-item .tooltip-content::after {
             content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px;
             border-width: 6px; border-style: solid;
-            border-color: #263238 transparent transparent transparent;
+            border-color: #1e293b transparent transparent transparent;
         }
 
         .ines-item:hover .tooltip-content { 
             visibility: visible; 
             opacity: 1; 
-            bottom: 110%;
+            bottom: 115%;
         }
         
-        .tt-title { display: block; font-weight: bold; color: #ffcc80; margin-bottom: 4px; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2px;}
+        .tt-title { display: block; font-weight: bold; color: #facc15; margin-bottom: 4px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px;}
 
         /* --- ELEMENTS VISUELS --- */
-        .level-label { display: flex; align-items: center; gap: 5px; }
+        .level-label { display: flex; align-items: center; gap: 8px; }
         
         .level-tag {
-            font-size: 9px; font-weight: 700; color: white;
+            font-size: 10px; font-weight: 800; color: white;
             background-color: var(--c);
-            padding: 1px 0; border-radius: 2px; width: 18px; text-align: center;
+            padding: 2px 0; border-radius: 4px; width: 22px; text-align: center;
         }
         
-        .level-desc { color: #546e7a; font-size: 11px; font-weight: 600; white-space: nowrap; }
+        .level-desc { color: #475569; font-size: 12px; font-weight: 600; white-space: nowrap; }
 
         .level-count {
-            text-align: right; padding-right: 8px; 
-            font-weight: 600; color: #37474f; font-size: 11px;
+            text-align: right; padding-right: 12px; 
+            font-weight: 700; color: #1e293b; font-size: 12px;
         }
 
         .bar-wrapper {
-            height: 5px; 
-            border-radius: 2px; 
+            height: 8px; 
+            background-color: #f1f5f9;
+            border-radius: 10px; 
             display: flex; align-items: center;
             overflow: hidden; 
         }
 
         .bar {
-            height: 100%; border-radius: 2px; 
+            height: 100%; border-radius: 10px; 
             width: var(--w); background-color: var(--c); opacity: 0.9;
-            min-width: 3px;
+            min-width: 4px;
         }
 
         /* --- COULEURS --- */
-        .cat-red    { --c: #d32f2f; }
-        .cat-orange { --c: #f57c00; }
-        .cat-green  { --c: #2e7d32; }
-        .cat-grey   { --c: #b0bec5; }
+        .cat-red    { --c: #ef4444; }
+        .cat-orange { --c: #f59e0b; }
+        .cat-green  { --c: #10b981; }
+        .cat-grey   { --c: #94a3b8; }
 
         .separator { 
-            margin-top: 5px; 
-            padding-top: 5px; 
-            border-top: 1px dashed #e0e0e0;
+            margin-top: 10px; 
+            padding-top: 10px; 
+            border-top: 1px dashed #e2e8f0;
         }
-
     </style>
 </head>
 <body>
 
     <div class="dashboard-card">
-        <h2>Distribution INES</h2>
-
         <ul class="ines-list">
             <li class="ines-item cat-red">
                 <div class="tooltip-content">
@@ -143,7 +130,7 @@
                 </div>
                 <div class="level-label"><span class="level-tag">N7</span> <span class="level-desc">Majeur</span></div>
                 <div class="level-count">1</div>
-                <div class="bar-wrapper"><div class="bar" style="--w: 2%"></div></div>
+                <div class="bar-wrapper"><div class="bar" style="--w: 5%"></div></div>
             </li>
             
             <li class="ines-item cat-red">
@@ -153,57 +140,57 @@
                 </div>
                 <div class="level-label"><span class="level-tag">N6</span> <span class="level-desc">Grave</span></div>
                 <div class="level-count">1</div>
-                <div class="bar-wrapper"><div class="bar" style="--w: 2%"></div></div>
+                <div class="bar-wrapper"><div class="bar" style="--w: 5%"></div></div>
             </li>
 
             <li class="ines-item cat-red">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 5 : Accident</span>
-                    Rejet limité : application partielle des mesures d'urgence. Dommages graves au cœur du réacteur. Exemple : Three Mile Island.
+                    Rejet limité : dommages graves au cœur du réacteur. Exemple : Three Mile Island.
                 </div>
                 <div class="level-label"><span class="level-tag">N5</span> <span class="level-desc">Accident</span></div>
                 <div class="level-count">1</div>
-                <div class="bar-wrapper"><div class="bar" style="--w: 2%"></div></div>
+                <div class="bar-wrapper"><div class="bar" style="--w: 5%"></div></div>
             </li>
 
             <li class="ines-item cat-red">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 4 : Accident (local)</span>
-                    Dommages mineurs au cœur ou exposition d'un travailleur à une dose mortelle. Rejet mineur sans risque extérieur majeur.
+                    Dommages mineurs au cœur. Rejet mineur sans risque extérieur majeur.
                 </div>
                 <div class="level-label"><span class="level-tag">N4</span> <span class="level-desc">Accident</span></div>
                 <div class="level-count">1</div>
-                <div class="bar-wrapper"><div class="bar" style="--w: 2%"></div></div>
+                <div class="bar-wrapper"><div class="bar" style="--w: 5%"></div></div>
             </li>
 
             <li class="ines-item cat-orange">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 3 : Incident Grave</span>
-                    Exposition &gt; 10 fois la limite annuelle pour un travailleur. Rejet très faible. Effet sanitaire non létal.
+                    Exposition &gt; 10 fois la limite annuelle pour un travailleur. Rejet très faible.
                 </div>
                 <div class="level-label"><span class="level-tag">N3</span> <span class="level-desc">Inc. Grave</span></div>
                 <div class="level-count">1</div>
-                <div class="bar-wrapper"><div class="bar" style="--w: 2%"></div></div>
+                <div class="bar-wrapper"><div class="bar" style="--w: 5%"></div></div>
             </li>
 
             <li class="ines-item cat-orange">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 2 : Incident</span>
-                    Défaillance technique importante ou exposition d'un travailleur &gt; limite annuelle. Conséquences significatives sur site.
+                    Défaillance technique importante ou exposition travailleur &gt; limite annuelle.
                 </div>
                 <div class="level-label"><span class="level-tag">N2</span> <span class="level-desc">Incident</span></div>
                 <div class="level-count">44</div>
-                <div class="bar-wrapper"><div class="bar" style="--w: 12%"></div></div>
+                <div class="bar-wrapper"><div class="bar" style="--w: 25%"></div></div>
             </li>
 
             <li class="ines-item cat-orange">
                 <div class="tooltip-content">
                     <span class="tt-title">Niveau 1 : Anomalie</span>
-                    Sortie du régime de fonctionnement autorisé. Conséquences nulles pour l'environnement ou les populations.
+                    Sortie du régime de fonctionnement autorisé. Conséquences nulles.
                 </div>
                 <div class="level-label"><span class="level-tag">N1</span> <span class="level-desc">Anomalie</span></div>
                 <div class="level-count">2833</div>
-                <div class="bar-wrapper"><div class="bar" style="--w: 55%"></div></div>
+                <div class="bar-wrapper"><div class="bar" style="--w: 85%"></div></div>
             </li>
 
             <li class="ines-item cat-green separator">
@@ -213,17 +200,17 @@
                 </div>
                 <div class="level-label"><span class="level-tag">N0</span> <span class="level-desc">Écart</span></div>
                 <div class="level-count">123</div>
-                <div class="bar-wrapper"><div class="bar" style="--w: 8%"></div></div>
+                <div class="bar-wrapper"><div class="bar" style="--w: 15%"></div></div>
             </li>
             
             <li class="ines-item cat-grey">
                 <div class="tooltip-content">
                     <span class="tt-title">Hors Échelle</span>
-                    Événement non pertinent vis-à-vis de l'échelle INES ou ne répondant pas aux critères de classement.
+                    Événement non pertinent vis-à-vis de l'échelle INES.
                 </div>
                 <div class="level-label"><span class="level-tag">-</span> <span class="level-desc">H. Échelle</span></div>
                 <div class="level-count">77</div>
-                <div class="bar-wrapper"><div class="bar" style="--w: 6%"></div></div>
+                <div class="bar-wrapper"><div class="bar" style="--w: 10%"></div></div>
             </li>
         </ul>
     </div>
